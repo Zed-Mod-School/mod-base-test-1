@@ -65,6 +65,8 @@ enum class ShaderId {
   HFRAG_MONTAGE = 38,
   PLAIN_TEXTURE = 39,
   TIE_WIND = 40,
+  MARIO = 41,
+  MARIO2 = 42,
   MAX_SHADERS
 };
 

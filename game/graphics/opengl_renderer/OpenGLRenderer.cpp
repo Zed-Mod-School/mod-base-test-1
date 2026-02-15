@@ -3,7 +3,7 @@
 #include "common/goal_constants.h"
 #include "common/log/log.h"
 #include "common/util/FileUtil.h"
-
+#include "game/kernel/jak1/Mario1.h"
 #include "game/graphics/opengl_renderer/BlitDisplays.h"
 #include "game/graphics/opengl_renderer/DepthCue.h"
 #include "game/graphics/opengl_renderer/DirectRenderer.h"
@@ -74,6 +74,8 @@ OpenGLRenderer::OpenGLRenderer(std::shared_ptr<TexturePool> texture_pool,
                                GameVersion version)
     : m_render_state(texture_pool, loader, version),
       m_collide_renderer(version),
+      m_mario_renderer(version),
+      m_mario_renderer2(version),
       m_version(version) {
   // requires OpenGL 4.3
 #ifndef __APPLE__
@@ -1311,6 +1313,21 @@ void OpenGLRenderer::dispatch_buckets_jak1(DmaFollower dma,
       auto p = prof.make_scoped_child("collision-draw");
       m_collide_renderer.render(&m_render_state, p);
     }
+    // Same hack to draw the mario mesh in the middle the drawing
+
+    if (true){//(should_render_mario() == true) {
+      if (bucket_id == 31 - 1) {
+      auto p = prof.make_scoped_child("collision-draw");
+      m_mario_renderer.render(&m_render_state, p);
+    }
+    // broken for now 
+    // if (bucket_id == 31 - 1) {
+    //   auto p = prof.make_scoped_child("collision-draw");
+    //   m_mario_renderer2.render(&m_render_state, p);
+    // }
+
+    }
+    
   }
 
   // TODO ending data.
