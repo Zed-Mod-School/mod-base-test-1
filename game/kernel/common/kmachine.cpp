@@ -9,7 +9,7 @@
 #include "common/util/FontUtils.h"
 #include "common/util/Timer.h"
 #include "common/util/string_util.h"
-
+#include "../jak1/Mario1.h"
 #include "game/external/discord.h"
 #include "game/graphics/display.h"
 #include "game/graphics/gfx.h"
@@ -23,6 +23,7 @@
 #include "game/sce/libpad.h"
 #include "game/sce/libscf.h"
 #include "game/sce/sif_ee.h"
+
 
 /*!
  * Where does OVERLORD load its data from?
@@ -1084,6 +1085,10 @@ void init_common_pc_port_functions(
   make_func_symbol_func("pc-send-trigger-effect-vibrate!", (void*)pc_send_trigger_effect_vibrate);
   make_func_symbol_func("pc-send-trigger-effect-weapon!", (void*)pc_send_trigger_effect_weapon);
   make_func_symbol_func("pc-send-trigger-rumble!", (void*)pc_send_trigger_rumble);
+
+  //MARIO STUFF
+  make_func_symbol_func("pc-set-mario-look-angles!", (void*)pc_set_mario_camera);
+
 
   // graphics things
   make_func_symbol_func("pc-set-vsync", (void*)pc_set_vsync);

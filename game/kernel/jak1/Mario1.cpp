@@ -320,6 +320,7 @@ void MarioManager::Tick() {
     // Tick all active Marios
     for (auto& pair : self.m_marios) {
       if (pair.second->active) {
+        jak1::call_goal_function_by_name("update-sm64-camera-from-goal");
         self.TickMario(pair.first);
       }
     }
@@ -482,11 +483,11 @@ uint64_t pc_get_mario_y(int id)       { float v = MarioManager::Get().GetMarioY(
 uint64_t pc_get_mario_z(int id)       { float v = MarioManager::Get().GetMarioZ(id);       uint64_t b; memcpy(&b, &v, 4); return b; }
 uint64_t pc_get_mario_action(int id)  { return MarioManager::Get().GetMarioAction(id); }
 
-void pc_set_mario_camera(int id, uint32_t x, uint32_t z) {
-  float fx, fz;
-  memcpy(&fx, &x, 4);
-  memcpy(&fz, &z, 4);
-  MarioManager::Get().SetMarioCamera(id, fx, fz);
+void pc_set_mario_camera(uint32_t x, uint32_t z) {
+    float fx, fz;
+    memcpy(&fx, &x, 4);
+    memcpy(&fz, &z, 4);
+    MarioManager::Get().SetMarioCamera(0, fx, fz);
 }
 
 void pc_set_mario_music_from_goal(int id, uint32_t music_bits) {

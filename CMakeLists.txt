@@ -332,10 +332,10 @@ option(ZYDIS_BUILD_TOOLS "Zydis: Build tools" OFF)
 option(ZYDIS_BUILD_EXAMPLES "Zydis: Build examples" OFF)
 
 file(GLOB_RECURSE LIBSM64_COLLIDE_FILES
-    "${CMAKE_CURRENT_SOURCE_DIR}/third-party/libsm64/src/collide/*.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/third-party/libsm64/src/collide/*.h"
-    "${CMAKE_CURRENT_SOURCE_DIR}/third-party/libsm64/src/collide/*.hpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/third-party/libsm64/src/collide/*.c"
+    "${CMAKE_CURRENT_SOURCE_DIR}/third-party/libsm64/*.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/third-party/libsm64/*.h"
+    "${CMAKE_CURRENT_SOURCE_DIR}/third-party/libsm64/*.hpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/third-party/libsm64/*.c"
 )
 
 if(LIBSM64_COLLIDE_FILES)

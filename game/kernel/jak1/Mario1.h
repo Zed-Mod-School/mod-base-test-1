@@ -110,6 +110,7 @@ class MarioManager {
   void UpdatePseudoFloor(int id);
   void MaybeReloadSurfaces(int id);  // Per-Mario position-based
 
+
   // Global methods
   void UpdateCollideGlobal();  // For shared dynamic objects
   void MaybeReloadSurfacesGlobal();
@@ -121,5 +122,7 @@ class MarioManager {
   size_t GetActiveMarioCount() const { return m_marios.size(); }
   std::vector<int> GetActiveMarioIds() const;
 };
+
+  void pc_set_mario_camera(uint32_t x, uint32_t z);
 
 
