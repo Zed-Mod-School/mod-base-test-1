@@ -11,6 +11,8 @@ mkdir -p $DEST
 cp $BIN_SOURCE/gk.exe $DEST
 cp $BIN_SOURCE/goalc.exe $DEST
 cp $BIN_SOURCE/extractor.exe $DEST
+cp $BIN_SOURCE/sm64.dll $DEST
+cp $BIN_SOURCE/msys-2.0.dll $DEST
 
 mkdir -p $DEST/data
 mkdir -p $DEST/data/launcher/
