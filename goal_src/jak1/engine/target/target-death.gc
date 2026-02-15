@@ -18,6 +18,9 @@
 
 (define *auto-continue* #f)
 
+(define-extern *are-we-in-target-continue* symbol)
+(defun-extern turn-off-mario-glue-for-specific-time int none)
+
 (defun next-level ((arg0 symbol))
   (let ((v1-0 (lookup-level-info arg0)))
     (the-as level-load-info

@@ -1,5 +1,5 @@
 (define *mario-global-glue-state* #t)
-(define *are-we-in-target-continue* #f) ;; <- review if this is needed it was a hack to know when we were done teleporting
+(define *are-we-in-target-continue* #f) ;; <- review if this is needed it was a hack to know when we were done teleporting its used in target-death.gc
 
 (defun mario-glue-override ()
   (when ;;(close? "fishermans-boat-2" (meters 15.0))
