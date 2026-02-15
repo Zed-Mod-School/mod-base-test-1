@@ -1,13 +1,13 @@
 version: 3
 
 vars:
-  GOALC_BIN_RELEASE_DIR: './out/build/Release/bin'
-  GK_BIN_RELEASE_DIR: './out/build/Release/bin'
-  DECOMP_BIN_RELEASE_DIR: './out/build/Release/bin'
-  MEMDUMP_BIN_RELEASE_DIR: './out/build/Release/bin'
-  TYPESEARCH_BIN_RELEASE_DIR: './out/build/Release/bin'
-  OFFLINETEST_BIN_RELEASE_DIR: './out/build/Release/bin'
-  GOALCTEST_BIN_RELEASE_DIR: './out/build/Release/bin'
-  FORMATTER_BIN_RELEASE_DIR: './out/build/Release/bin'
+  GOALC_BIN_RELEASE_DIR: './out/build/Debug/bin'
+  GK_BIN_RELEASE_DIR: './out/build/Debug/bin'
+  DECOMP_BIN_RELEASE_DIR: './out/build/Debug/bin'
+  MEMDUMP_BIN_RELEASE_DIR: './out/build/Debug/bin'
+  TYPESEARCH_BIN_RELEASE_DIR: './out/build/Debug/bin'
+  OFFLINETEST_BIN_RELEASE_DIR: './out/build/Debug/bin'
+  GOALCTEST_BIN_RELEASE_DIR: './out/build/Debug/bin'
+  FORMATTER_BIN_RELEASE_DIR: './out/build/Debug/bin'
   EXE_FILE_EXTENSION: '.exe'
   PYTHON: 'python'
