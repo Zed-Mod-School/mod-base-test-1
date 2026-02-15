@@ -8,6 +8,7 @@
 #include <fstream>
 #include <iostream>
 #include "common/common_types.h"
+#include "collide/level.h"
 
 // Constants
 constexpr float METERS_TO_UNITS = 50.0f / 4096.0f;
