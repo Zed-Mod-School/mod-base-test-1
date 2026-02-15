@@ -15,6 +15,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Letterbox and blackout
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun-extern mario-main-GOAL none)
 
 (defun set-letterbox-frames ((arg0 time-frame))
   "Set the letterbox frame counter for arg0 frames in the future"
@@ -238,24 +239,10 @@
 
 (define *first-boot* #t) ;; PAL
 
-(defun convert-to-mario-units ((unit float))
-  (/ unit (/ (meters 1.0) 50.0)))
-
-(defun update-sm64-camera-from-goal ()
-  ;; update cam-look x and z
-    (let* ((cam-look-x 0.0)
-         (cam-look-z 0.0)
-         )
- (set! cam-look-x (- (convert-to-mario-units (-> (target-pos 0) x)) (convert-to-mario-units (-> (camera-pos) x))))
-  (set! cam-look-z (- (convert-to-mario-units (-> (target-pos 0) z)) (convert-to-mario-units (-> (camera-pos) z))))
-  (pc-set-mario-look-angles! cam-look-x cam-look-z)
-    )
-      
-  )
-
 (defun main-cheats ()
   "Handle cheat codes and timeout"
   ;; look for codes when L3 is pushed
+  (mario-main-GOAL)
   (when (and (cpad-hold? 0 l3)
              (or *cheat-mode* (= *kernel-boot-message* 'play)) ;; not in demo
              )

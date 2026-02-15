@@ -1087,7 +1087,11 @@ void init_common_pc_port_functions(
   make_func_symbol_func("pc-send-trigger-rumble!", (void*)pc_send_trigger_rumble);
 
   //MARIO STUFF
+  make_func_symbol_func("pc-get-mario-x", (void*)pc_get_mario_x);
+  make_func_symbol_func("pc-get-mario-y", (void*)pc_get_mario_y);
+  make_func_symbol_func("pc-get-mario-z", (void*)pc_get_mario_z);
   make_func_symbol_func("pc-set-mario-look-angles!", (void*)pc_set_mario_camera);
+  make_func_symbol_func("pc-teleport-mario-to-pos", (void*)pc_set_mario_position_from_goal);
 
 
   // graphics things

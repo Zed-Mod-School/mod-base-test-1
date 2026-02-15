@@ -304,6 +304,9 @@
   "default-menu.o"
   "anim-tester-x.o" ;; added
   "entity-debug.o" ;; added
+  "mario-vars-h.o"
+  "mario-glue.o"
+  "mario.o"
   "subtitle.o" ;; added
   "default-menu-pc.o" ;; added
   "dir-tpages.go"

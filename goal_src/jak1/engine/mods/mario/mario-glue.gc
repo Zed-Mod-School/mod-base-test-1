@@ -1,0 +1,64 @@
+(define *mario-global-glue-state* #t)
+(define *are-we-in-target-continue* #f) ;; <- review if this is needed it was a hack to know when we were done teleporting
+
+(defun mario-glue-override ()
+  (when ;;(close? "fishermans-boat-2" (meters 15.0))
+    ;;(close? "gondola-1" (meters 15.0))
+    (= (get-mario-state) 'dead)
+    (return #f))
+  *mario-global-glue-state*)
+
+  (defun turn-off-mario-glue ()
+  (process-spawn-function process
+    (lambda :behavior process ()
+      (when (not #f)
+        (set! *mario-global-glue-state* #f)
+        (suspend-for (seconds 10))
+        (set! *mario-global-glue-state* #t)
+        (pc-teleport-mario-to-pos 0 (-> (target-pos 0) x) (+ (-> (target-pos 0) y) (meters 1.0)) (-> (target-pos 0) z))
+        ;;(false! *auto-saving?*)
+        )))
+  (none))
+
+(defun turn-off-mario-glue-for-specific-time ((time1 int))
+  (process-spawn-function process
+    (lambda :behavior process ((time2 seconds))
+      (when (not #f)
+        (set! *mario-global-glue-state* #f)
+        (suspend-for (- time2 (seconds 1.0)))
+        (pc-teleport-mario-to-pos 0 (-> (target-pos 0) x) (-> (target-pos 0) y) (-> (target-pos 0) z))
+        (suspend-for (seconds 1.0))
+        (set! *mario-global-glue-state* #t)
+        ;;(false! *auto-saving?*)
+        ))
+    time1)
+  (none))
+
+
+(defun jak-using-launcher? ()
+(= (-> *target* state) target-duck-high-jump-jump)
+)
+
+  (defun mario-glue-main-func ()
+      (when (and (not *are-we-in-target-continue*)
+               *target*
+               *render-mario?*
+               (not (jak-using-launcher?))
+               (mario-glue-override) ;;(cpad-hold? 0 up)
+               )
+
+      (set! (-> (target-pos 0) x) (* (pc-get-mario-x 0) *mario-scale-mult*))
+      (set! (-> (target-pos 0) y) (* (pc-get-mario-y 0) *mario-scale-mult*))
+      (set! (-> (target-pos 0) z) (* (pc-get-mario-z 0) *mario-scale-mult*))
+      
+      )
+
+    ;;when we are on launcher move mario to jak every frame install-debug-handler
+    (when (or (not (not (jak-using-launcher?)))
+    (not *render-mario?*)
+    
+    )
+    (pc-teleport-mario-to-pos 0 (-> (target-pos 0) x) (-> (target-pos 0) y) (-> (target-pos 0) z))
+    
+    )
+  )
