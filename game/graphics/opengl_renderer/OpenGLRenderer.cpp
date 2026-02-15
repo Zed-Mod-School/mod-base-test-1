@@ -1321,10 +1321,10 @@ void OpenGLRenderer::dispatch_buckets_jak1(DmaFollower dma,
       m_mario_renderer.render(&m_render_state, p);
     }
     // broken for now 
-    // if (bucket_id == 31 - 1) {
-    //   auto p = prof.make_scoped_child("collision-draw");
-    //   m_mario_renderer2.render(&m_render_state, p);
-    // }
+    if (bucket_id == 31 - 1) {
+      auto p = prof.make_scoped_child("collision-draw");
+      m_mario_renderer2.render(&m_render_state, p);
+    }
 
     }
     
