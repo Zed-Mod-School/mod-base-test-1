@@ -130,10 +130,10 @@ void KernelCheckAndDispatch() {
 
     // Optional: Give them different initial inputs for chaotic fun
     // (e.g., Mario1 goes right, Mario2 goes left)
-    if (mario1 != -1) {
-      auto& inputs1 = MarioManager::Get().GetMarioInputs(mario1);
-      inputs1.stickX = 20.0f;   // slight right bias
-    }
+    // if (mario1 != -1) {
+    //   auto& inputs1 = MarioManager::Get().GetMarioInputs(mario1);
+    //   inputs1.stickX = 20.0f;   // slight right bias
+    // }
     if (mario2 != -1) {
       auto& inputs2 = MarioManager::Get().GetMarioInputs(mario2);
       inputs2.stickX = -20.0f;  // slight left bias

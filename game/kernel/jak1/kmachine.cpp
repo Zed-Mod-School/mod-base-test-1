@@ -43,7 +43,7 @@
 #include "game/sce/libgraph.h"
 #include "game/sce/sif_ee.h"
 #include "game/sce/stubs.h"
-
+#include "game/kernel/jak1/Mario1.h"
 using namespace ee;
 
 namespace jak1 {
@@ -300,7 +300,7 @@ AutoSplitterBlock g_auto_splitter_block_jak1;
  */
 int InitMachine() {
   u32 debug_heap_end = (0xffffffff - DEBUG_HEAP_SPACE_FOR_STACK + 1) & 0x7ffffff;
-
+  MarioManager::Initialize();
   // initialize the global heap
   u32 global_heap_size = GLOBAL_HEAP_END - HEAP_START;
   float size_mb = ((float)global_heap_size) / (float)(1 << 20);

@@ -70,8 +70,19 @@ MarioManager::~MarioManager() {
     g_combined_surfaces_count = 0;
   }
 }
-
+bool g_mario_enabled = false;
 MarioManager& MarioManager::Get() {
+  // ─────────────────────────────────────────────────────────────
+  // Early-out: Mario is disabled until the global flag is true
+  // ─────────────────────────────────────────────────────────────
+  if (!g_mario_enabled) {
+    // Return a static dummy object that does absolutely nothing.a
+    // All calls to MarioManager::Get().xxx will be no-ops until enabled.
+    static MarioManager dummy;
+    return dummy;
+  }
+
+  // Normal path — initialize on first real use
   if (!sInstance) {
     Initialize();
   }

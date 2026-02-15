@@ -3,6 +3,9 @@
 #include "dualsense_effects.h"
 #include "input_device.h"
 
+#include "libsm64.h"
+#include "game/kernel/jak1/mario1.h"
+
 // https://wiki.libsdl.org/SDL3/CategoryGamepad
 class GameController : public InputDevice {
  public:

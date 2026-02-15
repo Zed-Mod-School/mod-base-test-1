@@ -5,6 +5,7 @@
 #include "dualsense_effects.h"
 #include "game_controller.h"
 
+#include "game/graphics/opengl_renderer/MarioRenderer.h"
 #include "game/system/hid/sdl_util.h"
 
 #include "fmt/format.h"
@@ -110,15 +111,49 @@ int normalize_axes_value(int sdl_val) {
   return ((sdl_val + 32768) * 256) / 65536;
 }
 
+auto sdl_axis_to_sm64 = [](int value) -> float {
+    value = std::clamp(value, -32768, 32767);
+
+    // Apply a deadzone
+    if (std::abs(value) < 8000)
+        return 0.0f;
+
+    // Normalize directly to -1.0 to 1.0 range
+    return (float)value / 32767.0f;
+};
+
 void GameController::process_event(const SDL_Event& event,
                                    const CommandBindingGroups& commands,
                                    std::shared_ptr<PadData> data,
                                    std::optional<InputBindAssignmentMeta>& bind_assignment) {
+                                    auto& inputs = MarioManager::Get().GetMarioInputs(1);
+                                    //static SM64MarioInputs inputs;a
   if (event.type == SDL_EVENT_GAMEPAD_AXIS_MOTION && event.gaxis.which == m_sdl_instance_id) {
     // https://wiki.libsdl.org/SDL3/SDL_GamepadAxis
     if ((int)event.gaxis.axis <= SDL_GAMEPAD_AXIS_INVALID ||
         event.gaxis.axis >= SDL_GAMEPAD_AXIS_COUNT) {
       return;
+    }
+
+    
+    static float last_stick_x = 0.0f;
+    static float last_stick_y = 0.0f;
+
+    if (event.gaxis.axis == SDL_GAMEPAD_AXIS_LEFTX) {
+      float stick = sdl_axis_to_sm64(event.gaxis.value);
+      if (stick != last_stick_x) {
+        inputs.stickX = stick;
+        last_stick_x = stick;
+        // printf("[DEBUG] stickX updated: %d\n", stick);
+      }
+    } else if (event.gaxis.axis == SDL_GAMEPAD_AXIS_LEFTY) {
+      float stick = sdl_axis_to_sm64(event.gaxis.value);
+      if (stick != last_stick_y) {
+        inputs.stickY = stick;
+     
+        last_stick_y = stick;
+        // printf("[DEBUG] stickY updated: %d\n", stick);
+      }
     }
 
     auto& binds = m_settings->controller_binds.at(m_guid);
@@ -182,6 +217,14 @@ void GameController::process_event(const SDL_Event& event,
     if ((int)event.gbutton.button <= SDL_GAMEPAD_BUTTON_INVALID ||
         event.gbutton.button >= SDL_GAMEPAD_BUTTON_COUNT) {
       return;
+    }
+
+    if (event.gbutton.button == SDL_GAMEPAD_BUTTON_SOUTH) {
+      inputs.buttonA = (event.type == SDL_EVENT_GAMEPAD_BUTTON_DOWN);
+    } else if (event.gbutton.button == SDL_GAMEPAD_BUTTON_EAST) {
+      inputs.buttonB = (event.type == SDL_EVENT_GAMEPAD_BUTTON_DOWN);
+    } else if (event.gbutton.button == SDL_GAMEPAD_BUTTON_LEFT_SHOULDER) {
+      inputs.buttonZ = (event.type == SDL_EVENT_GAMEPAD_BUTTON_DOWN);
     }
 
     // Binding re-assignment
