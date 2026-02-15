@@ -297,13 +297,24 @@ build_third_party_lib(stb_image stb_image)
 # build draco library for tinygltf compression support
 include_directories(third-party/draco/src)
 add_subdirectory(third-party/draco)
-# Copy draco_features.h to the appropriate output directory for each configuration
+# Copy draco_features.h + both DLLs to output dir for each config
 foreach(config IN ITEMS Debug Release)
     set(OUTPUT_DIR "${CMAKE_BINARY_DIR}/draco")
     file(MAKE_DIRECTORY "${OUTPUT_DIR}")
+    
     configure_file(
         "${CMAKE_CURRENT_SOURCE_DIR}/third-party/draco/src/draco/draco_features.h"
         "${OUTPUT_DIR}/draco_features.h"
+        COPYONLY
+    )
+    configure_file(
+        "${CMAKE_CURRENT_SOURCE_DIR}/third-party/draco/src/draco/msys-2.0.dll"
+        "${CMAKE_CURRENT_BINARY_DIR}/bin/msys-2.0.dll"
+        COPYONLY
+    )
+    configure_file(
+        "${CMAKE_CURRENT_SOURCE_DIR}/third-party/draco/src/draco/sm64.dll"
+        "${CMAKE_CURRENT_BINARY_DIR}/bin/sm64.dll"
         COPYONLY
     )
 endforeach()
@@ -319,6 +330,25 @@ build_third_party_lib(discord-rpc discord-rpc)
 # TODO - Once under CMake 3.13's policy CMP0077, override with `set()` instead
 option(ZYDIS_BUILD_TOOLS "Zydis: Build tools" OFF)
 option(ZYDIS_BUILD_EXAMPLES "Zydis: Build examples" OFF)
+
+file(GLOB_RECURSE LIBSM64_COLLIDE_FILES
+    "${CMAKE_CURRENT_SOURCE_DIR}/third-party/libsm64/src/collide/*.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/third-party/libsm64/src/collide/*.h"
+    "${CMAKE_CURRENT_SOURCE_DIR}/third-party/libsm64/src/collide/*.hpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/third-party/libsm64/src/collide/*.c"
+)
+
+if(LIBSM64_COLLIDE_FILES)
+    set_source_files_properties(${LIBSM64_COLLIDE_FILES}
+        PROPERTIES
+            HEADER_FILE_ONLY TRUE    
+            SKIP_PREPROCESSING TRUE
+            EXCLUDE_FROM_ALL TRUE
+    )
+
+    # Optional: group them under a hidden/filtered folder in Solution Explorer
+    source_group("Ignored/ThirdParty/libsm64/collide" FILES ${LIBSM64_COLLIDE_FILES})
+endif()
 
 if(STATICALLY_LINK)
     message(STATUS "Statically linking zydis")
